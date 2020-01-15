@@ -195,8 +195,8 @@ open class MXSegmentedControl: UIControl {
     open override func layoutSubviews() {
         super.layoutSubviews()
        
-        var frame = self.bounds.inset(by: contentEdgeInsets)
-        _scrollView.frame = frame
+        _scrollView.frame = self.bounds.inset(by: contentEdgeInsets)
+        var frame = CGRect(origin: .zero, size: self.bounds.inset(by: contentEdgeInsets).size)
         
         let size = contentView.intrinsicContentSize
         if size.width > frame.size.width {
@@ -222,7 +222,7 @@ open class MXSegmentedControl: UIControl {
         let current = segment(at: index)!
         
         var frame = CGRect.zero
-        frame.size.height = bounds.height
+        frame.size.height = _scrollView.bounds.height
         
         // Compute indicator's position
         var x = progress < 0 ? 0 : current.frame.size.width * (progress - CGFloat(index))
@@ -401,7 +401,7 @@ extension MXSegmentedControl {
     }
     
     @objc private func select(segment: MXSegment) {
-        if let index = contentView.segments.index(of: segment) {
+        if let index = contentView.segments.firstIndex(of: segment) {
             select(index: index, animated: true)
         }
     }
@@ -505,7 +505,7 @@ extension MXSegmentedControl {
         }
         
         func remove(_ segment: MXSegment) {
-            guard var index = segments.index(of: segment) else {
+            guard var index = segments.firstIndex(of: segment) else {
                 return
             }
             

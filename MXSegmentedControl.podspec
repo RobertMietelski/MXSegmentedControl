@@ -17,7 +17,7 @@ MXSegmentedControl is a segmented control framework for iOS:
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
   s.source_files = 'MXSegmentedControl/*.swift'
   
